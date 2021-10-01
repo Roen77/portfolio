@@ -169,7 +169,7 @@ introduce.to('body',0.3,{backgroundColor:'#BBDEFB'})
 .to('.phone-box',0.3,{scale:1.3})
 .to('.phone-box',0.3,{y:900,ease:Expo.easeInOut})
 .to('body',0.3,{backgroundColor:'#222'})
-
+// projects
 gsap.from(".card_lib", {
     scrollTrigger: ".card_lib",
     x:200,
