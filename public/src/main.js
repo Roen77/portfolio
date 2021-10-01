@@ -1,6 +1,8 @@
 (()=>{
+    gsap.core.globals("ScrollTrigger", ScrollTrigger);
     const imgElem=document.querySelector('.intro');
-    const mainSection=document.querySelector('.main_section')
+    const body=document.querySelector('body');
+    const mainSection=document.querySelector('.main_section');
     const totalCount=250;
     const videoFrame=[];
     let loadCount=0;
@@ -8,14 +10,14 @@
     function setImg(){
         for(let i = 0; i<totalCount; i++){
             let img=new Image();
-            img.src=`video/05/img_${i}.jpg`;
+            img.src=`video/img_${i}.jpg`;
             videoFrame.push(img);
 
             window.addEventListener("load",function(){
                 loadCount++;
                 // 이미지 로드 완료
                 if(loadCount === totalCount){
-                    mainSection.classList.add('after-load')
+                    body.classList.add('after-load')
                 }
             })
         }
@@ -35,30 +37,30 @@
     }
 
 
+
+
     const intro=gsap.timeline({
         scrollTrigger:{
             trigger:'.main_section',
             pin: ".main_section",
-            scrub:true,
+            scrub:1,
             // markers:{
             //     startColor:'blue',
             //     endColor:'red'
             // },
             onUpdate:function(){
-                if(mainSection.classList.contains('after-load')){
+                if(body.classList.contains('after-load')){
                     init()
                 }
             }
         }
     });
 
-    intro.to('.main_txt',{
-        y:-200,
-    },3)
-    intro.to('.main_txt',{
+
+    intro.to('.main_txt',0.5,{
         opacity:0
-    },3)
-    // scroll 
+    })
+    // scroll
     // let timeline = gsap.timeline();
     // ScrollTrigger.create({
     //     trigger: '.introduce',
@@ -81,8 +83,8 @@
             trigger: '.fix.introduce',
             pin: '.fix.introduce',
             start: 'top top',
-            end: '+=20000',
-            scrub: 1,
+            end: '+=18000',
+            scrub:1,
             // markers: {
             //     startColor: 'blue',
             //     endColor: 'red'
@@ -90,184 +92,99 @@
         }
     })
 
-introduce.to('.introduce .bg.main',0.3,{ opacity: 1,scale:2})
-.to('.introduce .txt-1',0.4,{opacity:1})
-.to('.introduce .txt-1',0.4,{y:-390},'-=0.2')
-.to('.introduce .person.main',0.4,{opacity:1,scale:0.8},'-=0.2')
-.to('.introduce .txt-1,.introduce .person.main',0.2,{opacity:0})
-.to('.introduce .txt-2',0.2,{opacity:1})
-.to('.introduce .txt-2',0.2,{y:-390},'-=0.2')
-.to('.introduce .txt-3',0.2,{opacity:1})
-.to('.introduce .txt-3',0.2,{y:-300},'-=0.2')
-.to('.introduce .bg.main',0.3,{opacity:0},'-=0.1')
+introduce.to('body',0.3,{backgroundColor:'#BBDEFB'})
+.to('.introduce .bg_main',0.5,{ opacity: 1,scale:2,ease:"circ.out"})
+.to('.introduce .txt-1',0.3,{opacity:1})
+.to('.introduce .txt-1',0.3,{top:'3%'},'-=0.2')
+.to('.main .person',0.5,{opacity:1,scale:0.9},'-=0.2')
+.to('.introduce .txt-1,.main .person',0.3,{opacity:0})
+.to('.introduce .bg_main',0.3,{opacity:0},'-=0.1')
 .to('.introduce .bg_work',0.3,{opacity:1},'-=0.2')
-.to('.introduce .person.work',0.4,{opacity:1,scale:1.1},'-=0.2')
-.to('.introduce .person.work',0.4,{opacity:0})
-.to('.introduce .person.qna',0.4,{opacity:1},'-=0.1')
+.to('.introduce .txt-2',0.3,{opacity:1})
+.to('.introduce .txt-2',0.3,{top:'2%'},'-=0.2')
+.to('body',0.3,{backgroundColor:'#EDE7F6'})
+.to('.work .person',0.5,{opacity:1,scale:1.1},'-=0.2')
+.to('.work .person',0.4,{opacity:0})
+.to('.introduce .txt-3',0.3,{opacity:1})
+.to('.introduce .txt-3',0.3,{top:'15%'},'-=0.2')
+.to('.qna .person',0.4,{opacity:1},'-=0.1')
 .to('.introduce .word01',0.3,{opacity:1})
-.to('.introduce .word01',0.3,{y:-100},'-=0.2')
+.to('.introduce .word01',0.3,{y:-10},'-=0.2')
 .to('.introduce .word02',0.3,{opacity:1})
-.to('.introduce .word02',0.3,{y:-100},'-=0.2')
+.to('.introduce .word02',0.3,{y:-10},'-=0.2')
 .to('.introduce .word03',0.3,{opacity:1})
-.to('.introduce .word03',0.3,{y:-100},'-=0.2')
-.to('.introduce .txt-2,.introduce .txt-3,.word01,.word02,.word03',0.3,{opacity:0})
-.to('.introduce .bg_work,.introduce .person.qna',0.3,{opacity:0})
+.to('.introduce .word03',0.3,{y:-10},'-=0.2')
+.to('.introduce .txt-2,.introduce .txt-3,.word01,.word02,.word03',0.3,{opacity:0,y:100})
+.to('.introduce .bg_work,.qna .person',0.3,{opacity:0})
 // .to('.introduce .house',0.3,{opacity:1,scale:1.5})
-.to('.introduce .txt-4',0.3,{opacity:2})
-.to('.introduce .txt-4',0.3,{y:-400},'-=0.1')
-.to('.introduce .person.work',0.3,{opacity:1,y:-100})
-.to('.introduce .main-circle',0.3,{opacity:1},'-=0.1')
-.to('.introduce .circle1',0.3,{opacity:1})
-.to('.introduce .circle-container',1,{rotate:'360deg'},)
-.to('.introduce .line',0.7,{opacity:1},'-=0.8')
-.to('.introduce .line1',1,{rotate:'800deg'},'-=0.8')
-.to('.introduce .line2',1,{rotate:'10deg'},'-=1')
-.to('.introduce .circle2',0.3,{opacity:1},'-=0.5')
-.to('.introduce .slide',1,{left:'-2200px', ease: "steps(3)"},'-=0.7')
-.to('.introduce .line',0.3,{opacity:0},'-=0.3')
-.to('.introduce .txt-5',0.3,{opacity:1})
-.to('.introduce .txt-5',0.3,{y:-200},'-=0.2')
+.addLabel("start")
+.to('.introduce .txt-4',0.3,{opacity:1,y:20})
+.to('.introduce .main-circle',0.3,{opacity:1})
+.to('.introduce .circle-container,.introduce .line1',0.7,{rotate:'360deg',repeat:4})
+.to('.introduce .line2',0.7,{rotate:'10deg'},'-=0.6')
+.to('.introduce .circle1,.summer',0.2,{opacity:1},'-=1.5')
+.to('.introduce .circle2,.fall',0.2,{opacity:1},'-=1')
+.to('.winter',0.2,{opacity:1},'-=0.2')
+.addLabel("end")
+.to('.introduce .line1,.center-circle,.introduce .line2',0.6,{opacity:1},'-=3.5')
+.to('.work .person',0.1,{opacity:1},'-=3')
+.to('.introduce .txt-5',0.3,{opacity:1, top:'15%'},'-=0.2')
 .to('.introduce .slide,.main-circle,.small-circle,.txt-4,.txt-5',0.3,{opacity:0})
-.to('.person.work',0.3,{opacity:0})
-.to('.skill .txt-6',0.3,{opacity:1,y:30},'-=0.2')
-.set('body',{backgroundColor:'#E3F2FD'})
-.to('.person.ability',0.3,{opacity:1,scale:1},'-=0.1')
-.to('.h-box',0.3,{height:'93%'},'-=0.2')
+.to('.work .person',0.3,{opacity:0})
+.to('.introduce .txt-10',0.3,{opacity:1,top:'10%'})
+.to('.office',0.3,{opacity:1})
+.from('.advantage .fr .number',0.3,{opacity:0,y:-100})
+.from('.advantage .txt-11',0.3,{opacity:0,y:-100})
+.from('.advantage .sec .number',0.3,{opacity:0,y:-100})
+.from('.advantage .txt-12',0.3,{opacity:0,y:-100})
+.from('.advantage .th .number',0.3,{opacity:0,y:-100})
+.from('.advantage .txt-13',0.3,{opacity:0,y:-100})
+.to('.advantages,.txt-10',0.3,{opacity:0})
+.to('.txt-14',0.3,{opacity:1,top:'10%'})
+.to('.office',0.6,{scale:1.5,bottom:'200px'})
+.to('.office',0.6,{left:'-100%'})
+.to('.office',0.3,{opacity:0})
+.to('.txt-14',0.3,{opacity:0})
+.to('.introduce .txt-6',0.3,{opacity:1,top:'10%'},'-=0.2')
+.set('body',{backgroundColor:'#F3E5F5'})
+.to('.ability .person',0.3,{opacity:1,scale:0.8})
+.to('.h-box .html',0.3,{height:'93%'},'-=0.2')
 .to('.h-box span',0.3,{y:50,opacity:1},'-=0.2')
-.to('.c-box',0.3,{height:'88%'},'-=0.2')
+.to('.c-box .css',0.3,{height:'88%'},'-=0.2')
 .to('.c-box span',0.3,{y:50,opacity:1},'-=0.2')
-.to('.j-box',0.3,{height:'84%'},'-=0.2')
+.to('.j-box .js',0.3,{height:'84%'},'-=0.2')
 .to('.j-box span',0.3,{y:50,opacity:1},'-=0.2')
-.to('.v-box',0.3,{height:'86%'},'-=0.2')
+.to('.v-box .vue',0.3,{height:'86%'},'-=0.2')
 .to('.v-box span',0.3,{y:50,opacity:1},'-=0.2')
-.to('.level-up',0.1,{y:-30,opacity:1},'-=0.2')
+.to('.level-up',0.1,{y:-50,opacity:1},'-=0.2')
 .to('.level-up',0.1,{opacity:0})
-.to('.h-box span',0.2,{left:'620%',bottom:'80%',rotate:20},'-=0.2')
-.to('.c-box span',0.2,{left:'243%',bottom:'80%',rotate:-10},'-=0.2')
-.to('.j-box span',0.2,{left:'-210%',bottom:'80%',rotate:30},'-=0.2')
-.to('.v-box span',0.2,{left:'-480%',bottom:'80%',rotate:-45},'-=0.2')
-.to('.skill-box .bar-container',0.3,{opacity:0},'-=0.1')
-.to('.person.ability',0.3,{opacity:0},'-=0.1')
-.to('.person.super',0.3,{opacity:1},'-=0.15')
-.to('.skill .txt-6',0.3,{opacity:0},'-=0.15')
-.to('.skill .txt-7',0.3,{opacity:1,y:60},'-=0.15')
-.to('.phone-box',0.1,{opacity:1})
-.to('.phone-box',0.5,{opacity:1,y:-700},'-=0.1')
-.to('.project .book',0.3,{left:'120%',top:'-70%',scale:1.5})
-.to('.project .memo',0.3,{left:'125%',top:'52%',scale:1.5},'-=0.2')
-.to('.project .cover',0.3,{left:'128%',top:'-70%',scale:1.5},'-=0.2')
+.set('.skill-box>div span',{opacity:0})
+.to('.skill-box>div .bar-container',0.3,{height:'200%'})
+.to('.ability .person',0.3,{opacity:0},'-=0.1')
+.to('.super .person',0.3,{opacity:1,scale:1.2},'-=0.2')
+.to('.introduce .txt-6',0.3,{opacity:0})
+.to('.introduce .txt-7',0.3,{opacity:1,top:'4%'})
+.to('.introduce .txt-8',0.3,{opacity:1,top:'15%'})
+.to('.phone-box',0.3,{opacity:1,y:-800,ease:Expo.easeInOut},'-=0.1')
+.to('.phone-box',0.3,{scale:1.3})
+.to('.phone-box',0.3,{y:900,ease:Expo.easeInOut})
+.to('body',0.3,{backgroundColor:'#222'})
+
+gsap.from(".card_lib", {
+    scrollTrigger: ".card_lib",
+    x:200,
+    opacity: 0,
+    scrub: 3,
+    duration:1
+  });
+gsap.from(".card_memo", {
+    scrollTrigger: ".card_memo",
+    x:200,
+    opacity: 0,
+    scrub: 3,
+    duration:1
+  },0.2);
 
 
-
-
-
-
-
-
-
-
-
-        // anticipatePin: 1,
-
-    // .to('.secene1 .place',{
-    //     opacity: 1,
-    //     scale:2,
-    // },-3)
-    // .to('.secene1 .txt',{
-    //     opacity: 1,
-    //    y:-370
-    // })
-    // .to('.secene1 .main',{
-    //     opacity: 1
-    // },-2.8)
-    // .to('.secene1 .txt',{
-    //     opacity: 0,
-    // },-2.5)
-    // .to('.secene1 .main',{
-    //     opacity: 0,
-    // },-2.3)
-    // .to('.secene1 .txt-2',{
-    //     y:-350,
-    // },-2.5)
-    // .to('.secene1 .txt-2',{
-    //     opacity: 1,
-    // },-2.4)
-    // .to('.secene1 .work',{
-    //     scale:1.5,
-    //     opacity: 1
-    // },-2.3)
-    // .to('.secene1 .place',{
-    //     opacity: 0
-    // },-2.5)
-    // .to('.secene1 .bg_work',{
-    //     opacity: 1
-    // },-2.5)
-    // .to('.secene1 .txt-3',{
-    //     opacity: 1
-    // },-2)
-    // .to('.secene1 .work',0.2,{
-    //     opacity: 0
-    // },-1.5)
-    // .to('.secene1 .qna',0.2,{
-    //     opacity: 1
-    // },-1.5)
-    // .to('.secene1 .word01',0.2,{
-    //     y:30,
-    //     opacity: 1
-    // },-1.2)
-    // .to('.secene1 .word02',0.2,{
-    //     y:40,
-    //     opacity: 1
-    // },-1.1)
-    // .to('.secene1 .word03',0.2,{
-    //     y:70,
-    //     opacity: 1
-    // },-1)
-    // .to('.secene1 .txt-2,.secene1 .txt-3,.secene1 .word01,.secene1 .word02,.secene1 .word03',0.2,{
-    //     y:-70,
-    //     opacity: 0
-    // },-0.5)
-    // .to('.secene2 .txt',0.2,{
-    //     y:-200,
-    //     opacity: 1
-    // },-0.4)
-    // .to('.secene1 .qna',0.1,{
-    //     opacity: 0
-    // },-0.4)
-    // .to('.secene1 .work',0.2,{
-    //     opacity: 1
-    // },-0.3)
-    // .to('.secene1 .bg_work',0.2,{
-    //     opacity: 0
-    // },-0.3)
-    // .to('.secene2 .bg',0.2,{
-    //     opacity: 1
-    // })
-    // .to('.secene2 .slides',0.1,{
-    //     opacity: 1,
-    //     scale: 1
-    // })
-    // .to('.secene2 .line',12,{
-    //     height:'60%',
-    // })
-    // .to('.secene2 .line .text-1',0.3,{
-    //     opacity: 1,
-    //     top:0
-    // },3)
-    // .to('.secene2 .line .text-2',0.3,{
-    //     opacity: 1,
-    //     top:'50%'
-    // },6)
-    // .to('.secene2 .line .text-3',0.3,{
-    //     opacity: 1,
-    //     top:'100%'
-    // },9)
-    // .to('.secene2 .slide',8,{
-    //     x:'-300%',
-    //     ease: "steps(3)"
-    // },4)
-
-
-
-    setImg()
+ setImg()
 })()
