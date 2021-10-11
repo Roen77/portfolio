@@ -3,7 +3,7 @@
     const imgElem=document.querySelector('.intro');
     const body=document.querySelector('body');
     const mainSection=document.querySelector('.main_section');
-    const totalCount=250;
+    const totalCount=97;
     const videoFrame=[];
     let loadCount=0;
     let currentFrame;
