@@ -1,97 +1,66 @@
 (()=>{
-    gsap.core.globals("ScrollTrigger", ScrollTrigger);
-    const imgElem=document.querySelector('.intro');
-    const body=document.querySelector('body');
-    const mainSection=document.querySelector('.main_section');
-    const totalCount=250;
-    const videoFrame=[];
-    let loadCount=0;
-    let currentFrame;
-    function setImg(){
-        for(let i = 0; i<totalCount; i++){
-            let img=new Image();
-            img.src=`public/video/img_${i}.jpg`;
-            videoFrame.push(img);
+gsap.core.globals("ScrollTrigger", ScrollTrigger);
+const imgElem=document.querySelector('.intro');
+const body=document.querySelector('body');
+const mainSection=document.querySelector('.main_section');
+const totalCount=195;
+const videoFrame=[];
+let loadCount=0;
+let currentFrame;
+const setImg = () => {
+    for (let i = 0; i < totalCount; i++) {
+        const img = new Image();
+        img.src = `public/video/img_${i}.jpg`;
+        videoFrame.push(img);
 
-            window.addEventListener("load",function(){
-                loadCount++;
-                // 이미지 로드 완료
-                if(loadCount === totalCount){
-                    body.classList.add('after-load')
-                }
-            })
-        }
+        window.addEventListener("load", function () {
+            loadCount++;
+            // 이미지 로드 완료
+            if (loadCount === totalCount) {
+                body.classList.add('after-load')
+            }
+        })
     }
+}
+const init = () => {
+    let mainSectionHeight = mainSection.scrollTop + mainSection.offsetHeight;
+    let per = pageYOffset / mainSectionHeight;
+    if (per > 1) per = 1;
+    if (per < 0) per = 0;
 
-    function init(){
-            let mainSectionHeight=mainSection.scrollTop+mainSection.offsetHeight;
-            let per =pageYOffset/mainSectionHeight;
-            if(per>1)per=1;
-            if(per<0) per=0;
-
-            requestAnimationFrame(function(){
-                currentFrame=Math.round((totalCount-1)*per);
-                imgElem.src=videoFrame[currentFrame].src;
-            })
-
-    }
-
-
-
-
-    const intro=gsap.timeline({
-        scrollTrigger:{
-            trigger:'.main_section',
-            pin: ".main_section",
-            scrub:1,
-            // markers:{
-            //     startColor:'blue',
-            //     endColor:'red'
-            // },
-            onUpdate:function(){
-                if(body.classList.contains('after-load')){
-                    init()
-                }
+    requestAnimationFrame(function () {
+        currentFrame = Math.round((totalCount - 1) * per);
+        imgElem.src = videoFrame[currentFrame].src;
+    })
+}
+const intro=gsap.timeline({
+    scrollTrigger:{
+        trigger:'.main_section',
+        pin: ".main_section",
+        scrub:1,
+        // markers:{
+        //     startColor:'blue',
+        //     endColor:'red'
+        // },
+        onUpdate:function(){
+            if(body.classList.contains('after-load')){
+                init()
             }
         }
-    });
-
-
-    intro.to('.main_txt',0.5,{
-        opacity:0
-    })
-    // scroll
-    // let timeline = gsap.timeline();
-    // ScrollTrigger.create({
-    //     trigger: '.introduce',
-    //     pin: '.introduce',
-    //     animation: timeline,
-    //     start: "top top",
-    //     end: "bottom center",
-    //     end: "+=3000",
-    //     scrub: 1,
-    //     markers: {
-    //         startColor: 'blue',
-    //         endColor: 'red'
-    //     }
-    // })
-
-
-
-    const introduce = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.fix.introduce',
-            pin: '.fix.introduce',
-            start: 'top top',
-            end: '+=18000',
-            scrub:1,
-            // markers: {
-            //     startColor: 'blue',
-            //     endColor: 'red'
-            // }
-        }
-    })
-
+    }
+});
+intro.to('.main_txt',0.5,{
+    opacity:0
+})
+const introduce = gsap.timeline({
+    scrollTrigger: {
+        trigger: '.fix.introduce',
+        pin: '.fix.introduce',
+        start: 'top top',
+        end: '+=18000',
+        scrub:1
+    }
+});
 introduce.to('body',0.3,{backgroundColor:'#BBDEFB'})
 .to('.introduce .bg_main',0.5,{ opacity: 1,scale:2,ease:"circ.out"})
 .to('.introduce .txt-1',0.3,{opacity:1})
@@ -184,7 +153,6 @@ gsap.from(".card_memo", {
     scrub: 3,
     duration:1
   },0.2);
-
 
  setImg()
 })()
