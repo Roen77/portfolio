@@ -15,7 +15,7 @@ const setImg = () => {
 
         window.addEventListener("load", function () {
             loadCount++;
-            // 이미지 로드 완료
+            // 이미지 로드 완료dd
             if (loadCount === totalCount) {
                 body.classList.add('after-load')
             }
