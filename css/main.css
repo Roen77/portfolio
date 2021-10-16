@@ -1,11 +1,11 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 body{
     font-family: 'Noto Sans KR', sans-serif;
-    background-color:#E3F2FD;
+    background-color: #222;
     overflow-x: hidden;
     width: 100%;
 }
+
 /* 버튼 */
 .fix_btn{position: fixed; bottom:30px; right: 70px;  background-color: #F50057;   border-radius: 20px; z-index: 9999;}
 .fix_btn a{display: block; padding: 7px 10px; color:#fff;}
@@ -18,13 +18,22 @@ body{
     right: 100px;
     z-index: 9999;
 }
-body .main_section{
+/* body .main_section{
     opacity: 0;
 }
 body.after-load .main_section{
     opacity: 1;
-}
+} */
 /* 로딩 */
+.loading_bar{
+    position: fixed;
+    left:0;
+    top:0;
+    width: 0;
+    z-index: 9999;
+    height:5px;
+    background-color: royalblue;
+}
 body .loading{
     position: fixed;
     left:0;
@@ -39,6 +48,7 @@ body .loading{
     visibility: visible;
     overflow: hidden;
     z-index: 99999;
+    transition: all 0.3s;
 }
 body .loading p{
     position: absolute;
@@ -70,62 +80,80 @@ body .loading .circle.yellow{
     100%{transform: rotate(360deg);}
 }
 
-body.after-load .loading{
+/* body.after-load .loading{
     opacity: 0;
     visibility: hidden;
-}
+} */
 section.main_section{
+    position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border: 30px solid gold; */
+    border: 1px solid gold;
     box-sizing: border-box;
+    background: url(../img/bg.png) 50% 0 no-repeat;
+    background-size: 100% 100%;
 }
-/* section.main_section::after{
-    content: '';
+section.main_section .circle_bg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    background: url(../img/circle.png) center center no-repeat;
+    background-size: 100% 100%;
+}
+section.main_section .layer{
     position: absolute;
     left:0;
     top:0;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient( circle farthest-corner at 10.2% 55.8%,  rgba(252, 37, 102, 0.30rgba(250, 38, 151, 0.212) 0.445) 46.2%, rgba(186,8,181,1) 90.1% );
-} */
-section .intro{
-    position: absolute;
-    left:0;
-    top:0;
-    width: 100%;
-    height: 100%;
 }
-.main_txt{
-    color:#ddd;
-    font-size: 10vw;
-    z-index: 9999;
-}
-/* .txt_area{
-    background: linear-gradient(to bottom ,#222 0,#fff 60%);
-    background-color:#222;
+section.main_section .circle_bg{
     position: relative;
-    box-sizing: border-box;
-    height: 100vh;
-    border-bottom: 1px solid blue;
-} */
-.txt_area h2{
-    color:#fff;
 }
-/* .main_section::before{
-    content: '';
-    position: absolute;
-    bottom:0;
-    left:0;
+section.main_section .circle_bg h1{
+    font-weight: bold;
+    font-size: 60px;
+    transform: translateX(-5px);
+}
+section.main_section  .arrow{
+    position: fixed;
+    bottom:10%;
     width: 100%;
-    height: 900px;
-    background: linear-gradient(to top,#222,transparent);
-    z-index: 9999;
-} */
+    height: 80px;
+    text-align: center;
+    opacity: 0;
+}
+section.main_section .circle_bg .arrow img{
+    width: 30px;
+    height: 100%;
+}
+section.main_section .wave{
+    position: absolute;
+    left:0;
+    bottom:-500px;
+    width: 100%;
+    overflow: hidden;
+}
+section.main_section .name{
+    opacity: 0;
+    background-color: gold;
+    padding: 10px 20px;
+    position: fixed;
+    top:-100px;
+    right: 80px;
+    color:#222;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+    transform: rotate(-8deg);
+}
+
+
 .fix{
     overflow: hidden;
     position: relative;
@@ -133,6 +161,12 @@ section .intro{
     height: 100vh;
     box-sizing: border-box;
      /* border: 5px solid red;  */
+}
+/* section bg */
+section.bg{
+    width: 100%;
+    height: 100vh;
+    background-color: #222;
 }
 section .inner{
     position: relative;
@@ -142,6 +176,32 @@ section .inner{
     margin: 0 auto;
     overflow: hidden;
     /* border: 1px solid orange; */
+    box-sizing: border-box;
+}
+.fix .layer{
+    position: absolute;
+    width: 40%;
+    transform: scale(0);
+}
+.fix .layer1{
+    transform-origin: right top;
+    right: 0;
+    top:0;
+}
+.fix .layer2{
+    transform-origin: left bottom;
+    bottom:0;
+    left:0;
+}
+.fix .txt{
+    position: fixed;
+    top:-200px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 20px 20px;
+    font-weight: bold;
+    font-size: 30px;
+    background-color: gold;
+    padding: 10px 20px;
     box-sizing: border-box;
 }
 /* 배경 */
@@ -166,15 +226,36 @@ section.fix .bg_con{
 }
 /* 텍스트 */
 .fix .text-con{
-    position: absolute;
-    left:0;
-    top:250px;
+    color:#fff;
     width: 100%;
     text-align: center;
     /* border: 1px solid blue; */
     box-sizing: border-box;
     opacity: 0;
     z-index: 200;
+}
+.fix .main_title{
+    opacity: 0;
+    position: relative;
+    color:#fff;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 10px;
+    box-sizing: border-box;
+    transform: translate(-300px,0);
+}
+.fix .main_title::after{
+    content: "My Project";
+    position: absolute;
+    left:8%;
+    bottom:-41%;
+    font-style: italic;
+    font-weight: 300;
+    color:#ddd;
+    opacity: 0.3;
+}
+.fix.advantage .main_title::after{
+    content: "Advantage";
 }
 .fix .text-con p{
     display: inline-block;
@@ -381,422 +462,276 @@ section.fix .bg_con{
 .fix .text-con.txt-4{
     top:5%;
 }
-/* advantage  */
-.advantages{
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    left:0;
-    bottom:0;
-    width: 100%;
-    height: 100%;
-    /* border: 1px solid red; */
-    z-index: 300;
-}
 
-.advantages>div{
-    padding: 0 30px;
-    box-sizing: border-box;
-    width: 100%;
-}
-.advantage{
-    display: flex;
-    align-items: center;
-    text-align: center;
-}
-.advantage:nth-child(2){
-    justify-content: center;
-}
-.advantage:nth-child(3){
-    justify-content: flex-end;
-}
-.advantage .number{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   width: 60px;
-   height: 60px;
-   border-radius: 50%;
-   color:#fff;
-   font-size: 25px;
-   font-weight: bold;
-   background-color:#1A237E;
-   /* background-image: linear-gradient( 105.3deg,  rgba(30,39,107,1) 21.8%, rgba(77,118,221,1) 100.2% ); */
-    border: 5px solid #fff;
-    margin: 0 auto;
-}
-.advantage p{
-    margin-top: 7%;
-    border-radius: 20px;
-    background-color: #fff;
-    padding:12px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
-.office{
-    position: absolute;
-    left:0;
-    width: 200%;
-    bottom:50px;
-    opacity: 0;
-}
- /* skills  */
- .skill-box .level-up{
-    position: absolute;
-    left:50%;
-    transform: translateX(-50%);
-    width: 40px;
-    top:10px;
-    opacity: 0;
-}
-.skill-box{
-    position: absolute;
-    display: flex;
-    align-items:center;
-    justify-content: center;
-    left:0;
+/* advantages */
+.advantages{
+    position: relative;
+    left:100%;
+    width: 300%;
+    height: 300px;
     top:50%;
     transform: translateY(-50%);
-    width: 100%;
-    height: 80%;
-    z-index: 00;
 }
-.skill-box>div{
-    position: relative;
+.advantages .advantage{
+    position: absolute;
+    left:0;
+    top:0;
+    font-weight: bold;
+    width: 33.3333%;
+    box-sizing: border-box;
+}
+.advantages .advantage .ad_inner{
+    width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 1px 2px rgb(255, 255, 255,0.2);
+    box-sizing: border-box;
+    height: 300px;
+    background: url(../img/card-80.jpg) 50% 0 no-repeat;
+    background-size: 100% 100%;
+}
+.advantages .advantage .ad_inner>div{
     width: 50%;
     height: 100%;
-    margin: 0 1%;
 }
-.skill-box>div .bar-container{
-    position: absolute;
-    left:0;
-    bottom:0;
-    width: 100%;
-    height: 0;
-    border-radius: 30px 30px 5px 5px;
-    box-shadow: 0 0 20px rgba(39,142,255,0.4);
-}
-.skill-box .html{
-    background-image: linear-gradient( 109.6deg,  rgba(39,142,255,1) 11.2%, rgba(98,113,255,0.78) 100.2% );
-}
-.skill-box .css{
-    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,106,0,1) 0%, rgba(255,157,0,1) 90% );
-}
-.skill-box .js{
-    background-image: linear-gradient( 183.5deg,  rgba(244,173,6,1) 18.6%, rgba(229,251,31,1) 119.9% );
-}
-.skill-box .vue{
-    background-image: linear-gradient( 102.1deg,  rgba(96,221,142,1) 8.7%, rgba(24,138,141,1) 88.1% );
-}
-.skill-box>div span{
-    position: absolute;
-    left:0;
-    bottom:0;
-    width: 100%;
-    background-color:#263238;
-    border-radius: 30px;
-    text-align: center;
-    color:#fff;
+
+.advantages .advantage .ad_inner h3{
+    color:#fd9124;
+    font-size: 50px;
     font-weight: bold;
-    padding: 5px;
-    box-sizing: border-box;
-    opacity: 0;
-    z-index: 100;
-}
-section.fix .person.super{
-    left:55%;
-    transform: translateX(-50%);
-    width: 40%;
-}
-.skill .title{
-    opacity: 1;
-    background:none;
-    box-shadow: none;
-    font-weight: bold;
-    font-size: 40px;
-
-
-}
-.phone-box{
-    position: absolute;
-    left:50%;
-    bottom:-800px;
-    transform: translateX(-50%);
-    z-index: 9999;
-    width: 350px;
-    height: 650px;
-    opacity: 0;
-}
-
-.phone-box .projects{
-    background-size: contain;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-}
-.phone-box .projects .phone{
-    position: absolute;
-    left:-15px;
-    top:0;
-    width: 100%;
-    height: 100%;
-}
-.phone-box  .title{
-    padding-top: 70px;
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    z-index: 9999;
-}
-.projects .project{
-    position: relative;
-    margin: 0 2%;
-}
-.projects .project-box{
-    display: block;
-    width: 50px;
-    height: 50px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 40px auto;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
-    border: 1px solid #fff;
-}
-.projects .project .git>img{
-    position: absolute;
-    left:-25%;
-    top:-20px;
-    width: 30px;
-    height: 30px;
-}
-.projects .project .git::after{
-    content: 'github';
-    position: absolute;
-    top:-50px;
-    left:50%;
-    transform: translateX(-100%);
-    text-align: center;
-    background-color: #FF7043;
-    font-size: 11px;
-    width: 100%;
-    color:#fff;
-    padding: 3px;
-    border-radius: 10px;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.2s;
-
-}
-.projects .project .git:hover img{
-    transform: scale(1.1);
-}
-.projects .project .git:hover::after{
-    opacity: 1;
-    visibility: visible;
-}
-.projects .project-box span{
-    display: inline-block;
-    position: relative;
-    color:#222;
-    top:60px;
-    font-size: 13px;
-}
-.projects .book{
-    background-color: #64B5F6;
-    background-image: url(../img/libapp.png);
-}
-.projects .memo{
-    background-color: #F06292;
-    background-image: url(../img/memoapp.png);
-}
-.introduce .super .person{
-    width: 350px;
-}
-/* project */
-.txt_area.project-area{
-    position: relative;
-    background-color: #222;
-    width: 100%;
-    padding: 50px 0 50px;
-}
-.txt_area.project-area .title h3{
-    color:#fff;
-    font-size: 28px;
     padding: 20px;
     box-sizing: border-box;
 }
-.project-area .inner{
-    padding: 0 20px;
-    box-sizing: border-box;
+.advantages .advantage .ad_inner ul{
+    padding: 0 10px 0;
+    padding-top: 50px;
+    color:#00BCD4;
+    font-size: 12px;
+    font-weight: 300;
 }
-.project-area .inner .projects_inner{
+.advantages .advantage.ad2{
+    left:33.3333%
+}
+.advantages .advantage.ad2 .ad_inner ul{
+    padding-top: 36px;
+}
+.advantages .advantage.ad3{
+    left:66.6666%
+}
+.advantages .advantage.ad3 .ad_inner ul{
+    padding-top: 56px;
+}
+.text{
+    opacity: 0;
+    position: fixed;
+    color:#fff;
+    bottom:100px;
+    left:0;
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.project-area .inner .projects{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.project-area .inner .projects .card{
-    position: relative;
     text-align: center;
-    height: 650px;
-    width: 40%;
-    margin: 0 1%;
-    background-color: #fff;
-    border: 1px solid #fff;
-    border-radius: 20px 20px 0 0;
-    overflow: hidden;
-    transition: 0.5s;
+    font-size: 50px;
+    font-weight: bold;
 }
-.project-area .inner .projects .card:hover{
-    transform: translateY(-4px) !important;
+/* projects */
+/* .myproject.active0{
+    background: url(../img/book_bg.jpg) center no-repeat;
+    background-size: 100% 100%;
 }
-.project-area .card .card_bg{
-    height: 250px;
-    background-image: url(../img/book_bg.jpg);
+.myproject.active1{
+    background: url(../img/memo_bg.jpg) center no-repeat;
+    background-size: 100% 100%;
+} */
+.project_bg{
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    background-size: 100% 100%;
+    background-position: 50% 0;
+    background-image: url(../img/book_bg.jpg);
+    z-index: 200;
+    opacity: 0;
+    transition: opacity .3s;
 }
-.project-area .card.card_memo .card_bg{
+.project_bg.memo{
     background-image: url(../img/memo_bg.jpg);
 }
-.project-area .card .contents{
-    padding: 5px 10px;
-    box-sizing: border-box;
+.myproject.active0 .project_bg.library{
+    opacity: 1;
 }
-.project-area .card .sub_title{
-    color:#64B5F6;
-    font-weight: bold;
+.myproject.active1 .project_bg.memo{
+    opacity: 1;
 }
-.project-area .card_memo .sub_title{
-    color:#F06292;
-}
-.project-area .card .title{
-    font-weight: bold;
-    font-size: 20px;
-}
-.project-area .card .des{
-    padding: 20px 0;
-    text-align: left;
-    font-size: 14px;
-}
-.project-area .card .btns{
+.myproject .layer_bg{
+    opacity: 0;
     position: absolute;
-    left:0;
-    bottom:80px;
     width: 100%;
+    height: 100%;
+    left:0;
+    top:0;
+    background: url(../img/layer4.png) 50% center no-repeat;
+}
+.myproject .bg{
+    position: fixed;
+    top:0;
+    right: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 27px 0 7px;
 }
-.project-area .card .point{
+.myproject .bg .bulb{
+    position: relative;
+    margin: 0 7px;
+    width: 70px;
+    height: 300px;
+    margin: 0 4px;
+    transform: translate(0,-400px);
+}
+.myproject  .bg img{
     position: absolute;
-    left:50%;
+    left:0;
     top:0;
-    transform: translateX(-85%);
-    padding: 5px;
-    background-color: crimson;
-    color:#fff;
-    font-size: 11px;
-    border-radius: 20px;
+    width: 100%;
+    height: 100%;
 }
-.project-area .card .point::after{
-    content: '';
+.myproject  .bg .bulb .on{
+    opacity: 0;
+}
+.myproject .main_cards{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+.myproject .card{
+    position: relative;
+    box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.2);
+    width: 300px;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    background-image: url(../img/book_bg.jpg);
+    margin: 0 25px;
+    transform: translate(-70%,120%) rotate(20deg);
+    visibility: hidden;
+    cursor: pointer;
+    opacity: 0;
+}
+.myproject .card.memo{
+    background-image: url(../img/memo_bg.jpg);
+    transform: translate(40%,120%)  rotate(-60deg);
+}
+
+.main_cards .card .card_content{
+    position: relative;
+    font-size: 12px;
+    padding: 22px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #fff;
+    transition: opacity .5s, transform .2s;
+    z-index: 9999;
+    box-shadow: 3px 3px 5px rgba(255, 255, 255, 0.2);
+    background: url(../img/card_bg3-80.jpg) 50% 0 no-repeat;
+    background-size: 100% 100%;
+    opacity: 0;
+}
+.myproject.active0 .library .card_content,
+.myproject.active1 .memo .card_content{
+    opacity: 1;
+}
+.myproject.active0 .library:hover .card_content,
+.myproject.active1 .memo:hover .card_content{
+    transform: scale(1.1);
+}
+.card h3{
+    font-size: 16px;
+}
+.card .des{
+    padding: 12px 0;
+    box-sizing: border-box;
+    line-height: 1.6;
+}
+.card .des .sub_title{
+    font-weight: bold;
+    font-size: 12px;
+}
+.card .btns{
     position: absolute;
+    padding: 0 10px;
+    box-sizing: border-box;
     bottom:0;
-    left:50%;
-    width: 5px;
-    height: 5px;
-    transform:  translateY(50%) rotate(45deg);
-    background-color: crimson;
+    width: 100%;
+    left:0;
 }
-.project-area .card .btns a{
+.card button{
+    display: block;
     color:#fff;
+    font-size: 12px;
+    background-color: #64B5F6;
+    width: 100%;
+    margin: 5px 0;
     box-sizing: border-box;
     font-weight: bold;
     border-radius: 30px;
-    margin: 1%;
     padding: 10px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 2px solid #Fff;
     transition: .3s;
+    cursor: pointer;
 }
-.project-area .card .btns .git{
-    background-color: #64B5F6;
-    border-color: #fff;
-}
-.project-area .card .btns .outline{
-    border-color: #64B5F6;
-    background-color: #fff;
-    color:#222;
-}
-.project-area .card .btns .git:hover{
-    color:#222;
-    background-color: #fff;
-    border-color: #64B5F6;
-}
-.project-area .card .btns .outline:hover{
-    background-color: #64B5F6;
-    color:#fff;
-}
-.project-area .card_memo .btns .git{
-    background-color: #F06292;
-}
-.project-area .card_memo .btns .outline{
-    border-color: #F06292;
-}
-.project-area .card_memo .btns .git:hover{
-    border-color: #F06292;
-}
-.project-area .card_memo .btns .outline:hover{
-    background-color: #F06292;
-}
-.project-area .card .source{
+.myproject .card .point{
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    left:0;
-    bottom:0;
-    width: 100%;
-    background-color: #64B5F6;
+    right: 10px;
+    top:-30px;
+    padding: 8px;
+    background-color: crimson;
+    color:#fff;
+    font-size: 10px;
+    border-radius: 20px;
 }
-.project-area .card_memo .source{
+.myproject .card .point::after{
+    content: '';
+    position: absolute;
+    bottom:0;
+    left:50%;
+    width: 5px;
+    height: 5px;
+    transform:t  translateY(50%) rotate(45deg);
+    background-color: crimson;
+}
+
+.myproject .card .btns button:hover{
+    color:#222;
+    background-color: #fff;
+    border-color: #64B5F6;
+}
+
+.myproject .memo .btns button{
     background-color: #F06292;
 }
-.project-area .card .source>div{
-    color:#fff;
-    width: 50%;
-    padding: 7px;
-    box-sizing: border-box;
-    border: 1px solid #fff;
-    margin-right: -1px;
+
+.myproject .memo .btns button:hover{
+    border-color: #F06292;
 }
-.project-area .card .source>div:last-child{
-    margin-right: 0;
-}
-.project-area .card .source span{
-    font-size: 12px;
-    color:#222;
-}
-.project-area .card .source .client{
-    background-color: #449de6;
-}
-.project-area .card_memo .source .client{
-    background-color: #da3c71;
+
+@media screen and (-ms-high-contrast: active),(-ms-high-contrast: none) {
+    html{
+        height: 100%;
+        overflow: hidden;
+    }
+    body{
+        position: relative;
+        height: 100%;
+        overflow: auto;
+    }
+
 }
