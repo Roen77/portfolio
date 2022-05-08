@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "babel ./public/src -d ./public/lib -w"
   },
@@ -14,5 +15,7 @@
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8"
   },
-  "dependencies": {}
+  "dependencies": {
+    "mobile-device-detect": "^0.4.3"
+  }
 }
