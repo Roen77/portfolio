@@ -280,18 +280,23 @@
         // console.log("click");
         // 앱 실행(iOS인 경우)
 
-        location.href = launchAppUrl;
-
         // 앱이 설치 되어있는지 체크
-
-        schInterval = setInterval(intervalSch, 500);
-
-        timer = setTimeout(function () {
-          // alert("앱이 설치되어있지 않습니다.");
-
-          clearInterval(schInterval);
+        location.href = launchAppUrl;
+        if (
+          location.href === "https://roen77.github.io/portfolio/" ||
+          location.href === "http://127.0.0.1:5500/index.html"
+        ) {
           return (location.href = storeUrl);
-        }, 2000);
+        }
+        console.log(location, "주소");
+        // return (location.href = storeUrl);
+        //     schInterval = setInterval(intervalSch, 500);
+
+        //     timer = setTimeout(function () {
+        //       // alert("앱이 설치되어있지 않습니다.");;
+        //       clearInterval(schInterval);
+        //       console.log("앱미설치");
+        //     }, 2000);
       };
 
       joinBtn.addEventListener("click", joinUrl);
