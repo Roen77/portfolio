@@ -272,7 +272,6 @@
           // alert("앱이 설치 되어 있습니다.");
         } else {
           // 웹뷰 활성화
-          location.href = storeUrl;
           // console.log("타이머 동작");
         }
       }
@@ -291,6 +290,7 @@
           // alert("앱이 설치되어있지 않습니다.");
 
           clearInterval(schInterval);
+          return (location.href = storeUrl);
         }, 2000);
       };
 
